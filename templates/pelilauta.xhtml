@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fi" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fi">
+
+<head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='tyylit.css') }}"/>
+    <meta charset="utf-8" />
+    <title>TIES4080 - Viikkotehtävä 2 - 2022 Syksy</title>
+</head>
+
+<body>
+    <h1>Pelilauta</h1>
+    <p>Kerro luotavan peliaulueen koko ja pelaajien nimet. Ruudukko on yhtä monta ruutua leveä kuin korkea.</p>
+
+    <form action="{{request.base_url}}" method="GET">
+        {{ form.csrf_token }}
+        <input type="hidden" value="{{poistettu}}" name="viimeisin_poisto" />
+        <input type="hidden" value="{{json_merkit}}" name="pmerkit" />
+        <div class="flex_1">
+            <div id="asetukset">
+                <p class="form-line">{{form.l_koko.label}}{{ form.l_koko }}</p>
+                <p class="form-line">{{form.pelaaja1.label}}{{ form.pelaaja1 }}</p>
+                <p class="form-line">{{form.pelaaja2.label}}{{ form.pelaaja2 }}</p>
+                <p><input type="submit" name="laheta" value="Luo pelilauta" id="yli_kirj" /></p>
+            </div>
+            <div class="e_validi">
+                {% if form.l_koko.errors %}
+                <p>{% for error in form.l_koko.errors %} <span class="e_validi">
+                {{ error|e }}</span> {% endfor %}</p>
+                {% else %}
+                <p class="validi"></p>
+                {% endif %}
+                
+                {% if form.pelaaja1.errors %}
+                <p>{% for error in form.pelaaja1.errors %} <span class="e_validi">
+                {{ error|e }}</span> {% endfor %}</p>
+                
+                {% else %}
+                <p class="validi"></p>
+                {% endif %}
+                
+                {% if form.pelaaja2.errors %}
+                <p>{% for error in form.pelaaja2.errors %} <span class="e_validi">
+                {{ error|e }}</span> {% endfor %}</p>
+                
+                {% else %}
+                <p class="validi"></p>
+                {% endif %}
+            </div>
+        </div>
+        <br/>
+        {% if poistettu %}
+        <input type="submit" name="undo" value="Undo" class="imitoi" />
+        {% endif %}
+        <br/>
+        <div class="flex_2">
+            <h2 class="pelaajat">{{pelaaja1}}</h2>           
+            <table class="{{ruutu_1}}">
+                {% for i in range(1, l_koko+1) %}
+                <tr>
+                    {% for j in range(1, l_koko+1) %}
+                        {% for key, value in pmerkit.items() if (key|int == i) %}
+                            {% for k in value if k is defined %}
+                                {% if (k["sarake"] == j and k["vari"] == "blue") %}
+                                    <td><button type="submit" name="poistettu" value="{{i}}:{{j}}">
+                                    <img src="{{url_si}}" alt="" height="{{korkeus}}"
+                                    width="{{leveys}}"></img></button>
+                                    </td>
+                                {% elif (k["sarake"] == j and k["vari"] == "red") %}
+                                    <td><img src="{{url_pu}}" alt="" height="{{korkeus}}"
+                                    width="{{leveys}}"></img>
+                                    </td>
+                                {% else %}
+                                <td></td>
+                                {% endif %}
+                            {% else %}
+                                <td></td>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            <h2 class="pelaajat">{{pelaaja2}}</h2>
+        </div>
+    </form>
+    <!-- Tästä eteenpäin on vain apuvälineenä käytettäviä skriptejä -->
+    <!-- HTMLinspectoria käytetään sivun live-muutosten validointiin. Kannattaa
+vielä varmuuden vuoksi ajaa välillä myös W3C:n validaattori -->
+    <script src="https://appro.mit.jyu.fi/tools/htmlinspector/html-inspector.js"></script>
+    <!-- Sivun validoinnin W3C:n validaattorilla voit tehdä milloin tahansa näppäinyhdistelmällä CTRL+ALT+V -->
+    <script src="https://appro.mit.jyu.fi/tools/validator/validator.user.js"></script>
+    <script src="https://appro.mit.jyu.fi/tools/validator/xml-validator.js"></script>
+</body>
+
+</html>
+

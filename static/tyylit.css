@@ -1,0 +1,115 @@
+#asetukset {
+    border: solid 2px;
+    width: 22vw;
+}
+
+.white tr:nth-of-type(even) td:nth-of-type(odd),
+.white tr:nth-of-type(odd) td:nth-of-type(even),
+.black tr:nth-of-type(even) td:nth-of-type(even),
+.black tr:nth-of-type(odd) td:nth-of-type(odd) {
+    color: black;
+    background-color: black;
+}
+
+.white tr:nth-of-type(even) td:nth-of-type(even),
+.white tr:nth-of-type(odd) td:nth-of-type(odd),
+.black tr:nth-of-type(even) td:nth-of-type(odd),
+.black tr:nth-of-type(odd) td:nth-of-type(even) {
+    color: white;
+    background-color: white;
+}
+
+.imitoi {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 900;
+    width: 8vw;
+    text-align: center;
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    margin: 0.2em;
+    animation-name: varinvaihto;
+    animation-direction: alternate;
+    animation-iteration-count:infinite; 
+    animation-duration: 2.3s;
+}
+
+@keyframes varinvaihto {
+     0% {
+        color: coral;
+      }
+
+     100% {
+        color: turquoise;
+      }
+}
+
+
+label {
+    padding-left: 1em;
+}
+
+input[type=submit] {
+    margin: 1em;
+    float: left;
+}
+
+td {
+    width: 4rem;
+    height: 4rem;
+    border: solid 1px;
+    border-color: black;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0.5em;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+input {
+    float: right;
+    margin-right: 1em;
+}
+
+.pelaajat {
+    writing-mode: vertical-lr;
+    text-align: center;
+    transform: rotate(-180deg);
+}
+
+.flex_1 {
+    display: flex;
+}
+
+.flex_2 {
+    display: flex;
+    margin-top: 2em;
+}
+
+.e_validi {
+    padding-left: 1em;
+    color: red;
+}
+
+.validi {
+    height: 1.2em;
+}
+
+#yli_kirj {
+    position: absolute;
+    margin-bottom: 1em;
+    margin-left: 0.0em;
+}
